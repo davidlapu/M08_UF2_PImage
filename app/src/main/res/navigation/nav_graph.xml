@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/mapsFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="cat.itb.m08_uf2_pimage.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="cat.itb.m08_uf2_pimage.fragment.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>
