@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -57,6 +59,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
         LatLng itb = new LatLng(41.4533,2.1857094);
 
+        MarkerOptions marker = new MarkerOptions();
+        marker.position(itb);
+        marker.title("ITB");
+        marker.snippet(":D");
+
+        //marker.icon(BitmapDescriptorFactory.fromResource(android.R.drawable.alert_dark_frame));
+        marker.draggable(true);
+
+        gMap.addMarker(marker);
+
         CameraPosition camera = new CameraPosition.Builder()
                 .target(itb)
                 .zoom(15)
@@ -65,5 +77,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                 .build();
 
         gMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+
+        gMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                Toast.makeText(getContext(), "latLng " + latLng.latitude
+                        + "\nlong "  + latLng.longitude, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
