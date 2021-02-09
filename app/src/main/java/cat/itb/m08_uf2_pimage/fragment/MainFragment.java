@@ -54,22 +54,17 @@ public class MainFragment extends Fragment {
     private ProgressBar progressBar;
 
 
-/*
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
         imgref = FirebaseDatabase.getInstance().getReference().child("Fotos");
     }
-*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-
-        storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
-        imgref = FirebaseDatabase.getInstance().getReference().child("Fotos");
 
         buttonTakePicture = v.findViewById(R.id.buttonTakePicture);
         buttonUpload = v.findViewById(R.id.buttonUploadPicture);
@@ -169,7 +164,7 @@ public class MainFragment extends Fragment {
         UploadTask uploadTask = ref.putBytes(thumb_byte, metadata);
         Task<Uri> uriTask = uploadTask.continueWithTask(task -> {
             if (!task.isSuccessful()){
-                throw Objects.requireNonNull(task.getException()); //posible fallo
+                throw Objects.requireNonNull(task.getException());
             }
             return ref.getDownloadUrl();
         }).addOnCompleteListener(task -> {

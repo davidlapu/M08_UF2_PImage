@@ -78,12 +78,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
         gMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
 
-        gMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        gMap.setOnMapLongClickListener(this::mapLongClicked);
+
+/*        gMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
                 Toast.makeText(getContext(), "latLng " + latLng.latitude
                         + "\nlong "  + latLng.longitude, Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
+
     }
+
+    private void mapLongClicked(LatLng latLng) {
+
+    }
+
 }
