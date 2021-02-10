@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarkerList {
-    private static List<MarkerOptions> markerList;
+    private static List<MarkerItem> markerList = new ArrayList<>();
 
-    public MarkerList(List<MarkerOptions> list) {
-        markerList = new ArrayList<>(list);
+    public MarkerList() {
     }
 
-    public static List<MarkerOptions> getMarkerList() {
+    public static List<MarkerItem> getMarkerList() {
         return markerList;
     }
-
 }
