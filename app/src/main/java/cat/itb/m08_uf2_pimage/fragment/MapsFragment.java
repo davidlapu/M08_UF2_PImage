@@ -3,6 +3,8 @@ package cat.itb.m08_uf2_pimage.fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,9 +25,11 @@ import cat.itb.m08_uf2_pimage.R;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
-    View rootView;
-    MapView mapView;
-    GoogleMap gMap;
+    private View rootView;
+    private MapView mapView;
+    private GoogleMap gMap;
+    private NavController navController;
+
 
     @Nullable
     @Override
@@ -33,6 +37,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_maps, container, false);
+        navController = Navigation.findNavController(rootView);
         return rootView;
     }
 
@@ -91,7 +96,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void mapLongClicked(LatLng latLng) {
-
+        navController.navigate(R.id.action_mapsFragment_to_formNewMarkerFragment);
     }
 
 }
