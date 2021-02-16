@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,13 +33,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     private NavController navController;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        navController = NavHostFragment.findNavController(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_maps, container, false);
-        navController = Navigation.findNavController(rootView);
         return rootView;
     }
 
@@ -96,7 +103,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void mapLongClicked(LatLng latLng) {
-        navController.navigate(R.id.action_mapsFragment_to_formNewMarkerFragment);
+        NavDirections action = MapsFragmentDirections.actionMapsFragmentToFormNewMarkerFragment(latLng);
+        navController.navigate(action);
     }
 
 }

@@ -138,7 +138,7 @@ public class MainFragment extends Fragment {
             thumbBitmap = new Compressor(requireContext())
                     .setMaxHeight(125)
                     .setMaxWidth(125)
-                    .setQuality(50)
+                    .setQuality(90)
                     .compressToBitmap(url);
         } catch (IOException e) {
             e.printStackTrace();
