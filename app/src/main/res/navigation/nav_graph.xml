@@ -6,11 +6,6 @@
     app:startDestination="@id/mapsFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="cat.itb.m08_uf2_pimage.fragment.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
-    <fragment
         android:id="@+id/mapsFragment"
         android:name="cat.itb.m08_uf2_pimage.fragment.MapsFragment"
         android:label="fragment_maps"
@@ -18,6 +13,9 @@
         <action
             android:id="@+id/action_mapsFragment_to_formNewMarkerFragment"
             app:destination="@id/formNewMarkerFragment" />
+        <action
+            android:id="@+id/action_mapsFragment_to_markerListFragment"
+            app:destination="@id/markerListFragment" />
     </fragment>
     <fragment
         android:id="@+id/formNewMarkerFragment"
@@ -30,5 +28,14 @@
         <argument
             android:name="latLng"
             app:argType="com.google.android.gms.maps.model.LatLng" />
+    </fragment>
+    <fragment
+        android:id="@+id/markerListFragment"
+        android:name="cat.itb.m08_uf2_pimage.fragment.MarkerListFragment"
+        android:label="fragment_marker_list"
+        tools:layout="@layout/fragment_marker_list" >
+        <action
+            android:id="@+id/action_markerListFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
 </navigation>
