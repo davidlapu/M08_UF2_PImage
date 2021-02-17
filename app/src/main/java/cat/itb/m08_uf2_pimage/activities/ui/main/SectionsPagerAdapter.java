@@ -32,7 +32,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position) {
-            case 0: fragment = new MainFragment();
+            case 0: fragment = new MapsFragment();
             break;
             case 1: fragment = new MarkerListFragment();
             break;

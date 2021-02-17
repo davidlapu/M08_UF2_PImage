@@ -36,7 +36,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        navController = NavHostFragment.findNavController(this);
+        //navController = NavHostFragment.findNavController(this);
     }
 
     @Nullable
