@@ -15,20 +15,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+import cat.itb.m08_uf2_pimage.models.MarkerItem;
+
 public class DDBBUtils {
     private final StorageReference storageReference;
     private final DatabaseReference imgref;
+    private final DatabaseReference markerRef;
 
     public DDBBUtils() {
         storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
         imgref = FirebaseDatabase.getInstance().getReference().child("Fotos");
+        markerRef = FirebaseDatabase.getInstance().getReference("markers");
     }
 
+    //TODO get uri
     private void subirImagen(byte[] img, LatLng latLng) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp = sdf.format(new Date());
         String nameImage = timestamp + ".jpg";
-
         StorageReference ref = storageReference.child(nameImage);
         StorageMetadata metadata = new StorageMetadata.Builder()
                 .setCustomMetadata("lat", String.valueOf(latLng.latitude))
@@ -36,7 +40,7 @@ public class DDBBUtils {
                 .build();
         UploadTask uploadTask = ref.putBytes(img, metadata);
         Task<Uri> uriTask = uploadTask.continueWithTask(task -> {
-            if (!task.isSuccessful()){
+            if (!task.isSuccessful()) {
                 throw Objects.requireNonNull(task.getException());
             }
             return ref.getDownloadUrl();
@@ -45,5 +49,11 @@ public class DDBBUtils {
             imgref.push().child("urlfoto").setValue(downloadUri.toString());
         });
 
+    }
+
+    private void uploadMarker(MarkerItem markerItem) {
+        String key = markerRef.push().getKey();
+        markerItem.setId(key);
+        markerRef.child(key).setValue(markerItem);
     }
 }
