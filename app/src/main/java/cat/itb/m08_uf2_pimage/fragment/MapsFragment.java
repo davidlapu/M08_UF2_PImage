@@ -103,8 +103,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void mapLongClicked(LatLng latLng) {
-        NavDirections action = MapsFragmentDirections.actionMapsFragmentToFormNewMarkerFragment(latLng);
-        navController.navigate(action);
+/*        NavDirections action = MapsFragmentDirections.actionMapsFragmentToFormNewMarkerFragment(latLng);
+        navController.navigate(action);*/
     }
 
 }

@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import cat.itb.m08_uf2_pimage.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private NavController navController;
@@ -18,11 +18,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map);
 
         navController = Navigation.findNavController(this , R.id.nav_host_fragment);
-
-        tabLayout = findViewById(R.id.tabLayout);
-
+        
     }
 }
