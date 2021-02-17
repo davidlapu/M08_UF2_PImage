@@ -6,4 +6,6 @@
     <string name="title">Title</string>
     <string name="save">Save</string>
     <string name="select_img">Select img</string>
+    <string name="map">Map</string>
+    <string name="list">List</string>
 </resources>

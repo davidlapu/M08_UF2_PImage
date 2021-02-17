@@ -86,6 +86,7 @@ public class FormNewMarkerFragment extends Fragment {
         else if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri imageUri = CropImage.getPickImageResultUri(requireContext(), data);
             imageUtils.recortarImagen(imageUri, FormNewMarkerFragment.this);
+
             changeMarker();
         }
         else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -93,6 +94,7 @@ public class FormNewMarkerFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 url = new File(result.getUri().getPath());
                 Picasso.with(requireContext()).load(url).into(imageView);
+
                 changeMarker();
             }
         }
