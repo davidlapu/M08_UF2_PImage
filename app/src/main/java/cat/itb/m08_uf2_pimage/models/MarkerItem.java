@@ -1,22 +1,16 @@
 package cat.itb.m08_uf2_pimage.models;
 
-import com.google.android.gms.maps.model.LatLng;
-
 public class MarkerItem {
     private String id;
     private String urlfoto;
     private String title;
-    private LatLng latLng;
+    private String description;
+    private Double latitude, longitude;
 
     public MarkerItem() {
+
     }
 
-    public MarkerItem(String id, String urlfoto, String title, LatLng latLng) {
-        this.id = id;
-        this.urlfoto = urlfoto;
-        this.title = title;
-        this.latLng = latLng;
-    }
 
     public String getId() {
         return id;
@@ -42,11 +36,27 @@ public class MarkerItem {
         this.title = title;
     }
 
-    public LatLng getLatLng() {
-        return latLng;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLatLng(LatLng latLng) {
-        this.latLng = latLng;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

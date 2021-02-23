@@ -29,7 +29,7 @@ public class DDBBUtils {
     }
 
     //TODO get uri
-    private void subirImagen(byte[] img, LatLng latLng) {
+    public Task<Uri> subirImagen(byte[] img, LatLng latLng) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp = sdf.format(new Date());
         String nameImage = timestamp + ".jpg";
@@ -44,16 +44,19 @@ public class DDBBUtils {
                 throw Objects.requireNonNull(task.getException());
             }
             return ref.getDownloadUrl();
-        }).addOnCompleteListener(task -> {
-            Uri downloadUri = task.getResult();
-            imgref.push().child("urlfoto").setValue(downloadUri.toString());
         });
 
+
+        return uriTask;
     }
 
-    private void uploadMarker(MarkerItem markerItem) {
+    public void uploadMarker(MarkerItem markerItem) {
         String key = markerRef.push().getKey();
         markerItem.setId(key);
         markerRef.child(key).setValue(markerItem);
+    }
+
+    public DatabaseReference getMarkerRef() {
+        return markerRef;
     }
 }
