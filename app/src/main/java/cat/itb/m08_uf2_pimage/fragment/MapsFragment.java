@@ -1,17 +1,16 @@
 package cat.itb.m08_uf2_pimage.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
-
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,13 +28,14 @@ import cat.itb.m08_uf2_pimage.R;
 import cat.itb.m08_uf2_pimage.models.MarkerItem;
 import cat.itb.m08_uf2_pimage.utils.DDBBUtils;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback{
+public class MapsFragment extends Fragment implements OnMapReadyCallback, TabLayout.OnTabSelectedListener {
 
     private View rootView;
     private MapView mapView;
     private GoogleMap gMap;
     private NavController navController;
     private DDBBUtils ddbbUtils;
+    private TabLayout tabLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,25 +51,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_maps, container, false);
 
-        TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 1) {
-                    navController.navigate(R.id.action_mapsFragment_to_markerListFragment);
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        tabLayout = getActivity().findViewById(R.id.tabLayout);
+        tabLayout.addOnTabSelectedListener(this);
         return rootView;
     }
 
@@ -146,24 +129,26 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
         navController.navigate(action);
     }
 
-
-    class onTabSelectedListener implements TabLayout.OnTabSelectedListener {
-
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            if (tab.getPosition() == 1) {
-                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_mapsFragment_to_markerListFragment);
-            }
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        if (tab.getPosition() == 1) {
+            navController.navigate(R.id.action_mapsFragment_to_markerListFragment);
         }
+    }
 
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
 
-        }
+    }
 
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
 
-        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        tabLayout.removeOnTabSelectedListener(this);
     }
 }

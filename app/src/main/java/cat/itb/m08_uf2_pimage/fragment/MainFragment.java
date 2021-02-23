@@ -64,6 +64,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        requireActivity().findViewById(R.id.tabLayout).setVisibility(View.VISIBLE);
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
         buttonTakePicture = v.findViewById(R.id.buttonTakePicture);

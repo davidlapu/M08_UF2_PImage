@@ -36,8 +36,8 @@ public class ImageUtils {
 
     public void recortarImagen(Uri imageUri, Fragment fragment) {
         CropImage.activity(imageUri).setGuidelines(CropImageView.Guidelines.ON)
-                .setRequestedSize(640, 480)
-                .setAspectRatio(2, 1)
+                .setRequestedSize(300, 300)
+                .setAspectRatio(1, 1)
                 .start(context, fragment);
     }
 
