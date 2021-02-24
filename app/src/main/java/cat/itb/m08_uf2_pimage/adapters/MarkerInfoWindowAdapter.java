@@ -31,6 +31,11 @@ public class MarkerInfoWindowAdapter implements InfoWindowAdapter {
     public View getInfoContents(Marker marker) {
         MaterialTextView textViewTitle, textViewDescription;
         ShapeableImageView imageView;
+        String text, url;
+        String[] info = marker.getSnippet().split("\\$spl\\$");
+        text = info[0];
+        url = info[1];
+        Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
         //TODO move to InfoWindow
 
         textViewTitle = viewContents.findViewById(R.id.infoTitle);
@@ -38,8 +43,8 @@ public class MarkerInfoWindowAdapter implements InfoWindowAdapter {
         imageView = viewContents.findViewById(R.id.infoImg);
 
         textViewTitle.setText(marker.getTitle());
-        textViewDescription.setText(marker.getSnippet());
-        //Picasso.with(context).load(marker.get).into(imageView);
+        textViewDescription.setText(text);
+        Picasso.with(context).load(url).into(imageView);
 
         return viewContents;
     }

@@ -108,7 +108,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, TabLay
 
                     marker.position(new LatLng(item.getLatitude(), item.getLongitude()));
                     marker.title(item.getTitle());
-                    marker.snippet(item.getDescription());
+                    marker.snippet(item.getDescription() + "$spl$" + item.getUrlfoto());
 
                     gMap.addMarker(marker);
                 }
