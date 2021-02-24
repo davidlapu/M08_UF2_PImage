@@ -39,7 +39,6 @@ public class FormNewMarkerFragment extends Fragment {
     private TextInputEditText textInputEditTextTitle, textInputEditTextDescription;
     private MaterialButton buttonFormSave;
     private ImageUtils imageUtils;
-    private DDBBUtils ddbbUtils;
     private File url;
     private LatLng latLng;
 
@@ -48,7 +47,6 @@ public class FormNewMarkerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         navController = NavHostFragment.findNavController(this);
         imageUtils = new ImageUtils(requireContext());
-        ddbbUtils = new DDBBUtils();
     }
 
     @Override
@@ -87,7 +85,7 @@ public class FormNewMarkerFragment extends Fragment {
         buttonFormSave.setEnabled(false);
         MarkerItem item = new MarkerItem();
         try {
-            Task<Uri> task = ddbbUtils.subirImagen(imageUtils.comprimirImagen(url), latLng);
+            Task<Uri> task = DDBBUtils.subirImagen(imageUtils.comprimirImagen(url), latLng);
             item.setDescription(textInputEditTextDescription.getText().toString());
             item.setTitle(textInputEditTextTitle.getText().toString());
             item.setLatitude(latLng.latitude);
@@ -98,7 +96,7 @@ public class FormNewMarkerFragment extends Fragment {
 
                 String urlFoto = downloadUri.toString();
                 item.setUrlfoto(urlFoto);
-                ddbbUtils.uploadMarker(item);
+                DDBBUtils.uploadMarker(item);
                 navigateMap();
             });
 

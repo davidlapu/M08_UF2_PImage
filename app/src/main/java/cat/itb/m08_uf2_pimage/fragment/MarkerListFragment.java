@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,13 +17,13 @@ import com.google.android.material.tabs.TabLayout;
 
 import cat.itb.m08_uf2_pimage.R;
 import cat.itb.m08_uf2_pimage.adapters.MarkerAdapter;
+import cat.itb.m08_uf2_pimage.adapters.SwipeToDeleteCallback;
 import cat.itb.m08_uf2_pimage.models.MarkerItem;
 import cat.itb.m08_uf2_pimage.utils.DDBBUtils;
 
 public class MarkerListFragment extends Fragment implements TabLayout.OnTabSelectedListener {
 
     private NavController navController;
-    private DDBBUtils ddbbUtils;
     private MarkerAdapter adapter;
     private TabLayout tabLayout;
 
@@ -30,13 +31,11 @@ public class MarkerListFragment extends Fragment implements TabLayout.OnTabSelec
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         navController = NavHostFragment.findNavController(this);
-        ddbbUtils = new DDBBUtils();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         tabLayout = requireActivity().findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(this);
 
@@ -45,9 +44,10 @@ public class MarkerListFragment extends Fragment implements TabLayout.OnTabSelec
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         FirebaseRecyclerOptions<MarkerItem> options = new FirebaseRecyclerOptions.Builder<MarkerItem>()
-                .setQuery(ddbbUtils.getMarkerRef(), MarkerItem.class).build();
-        adapter = new MarkerAdapter(options, requireContext());
+                .setQuery(DDBBUtils.getMarkerRef(), MarkerItem.class).build();
+        adapter = new MarkerAdapter(options, requireContext(), navController);
         recyclerView.setAdapter(adapter);
+        new ItemTouchHelper(new SwipeToDeleteCallback(adapter)).attachToRecyclerView(recyclerView);
 
         return v;
     }

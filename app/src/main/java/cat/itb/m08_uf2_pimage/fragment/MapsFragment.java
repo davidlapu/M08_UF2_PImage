@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import cat.itb.m08_uf2_pimage.R;
+import cat.itb.m08_uf2_pimage.adapters.MarkerInfoWindowAdapter;
 import cat.itb.m08_uf2_pimage.models.MarkerItem;
 import cat.itb.m08_uf2_pimage.utils.DDBBUtils;
 
@@ -34,14 +35,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, TabLay
     private MapView mapView;
     private GoogleMap gMap;
     private NavController navController;
-    private DDBBUtils ddbbUtils;
     private TabLayout tabLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         navController = NavHostFragment.findNavController(this);
-        ddbbUtils = new DDBBUtils();
     }
 
     @Nullable
@@ -71,21 +70,26 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, TabLay
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
+        gMap.setInfoWindowAdapter(new MarkerInfoWindowAdapter(getLayoutInflater(), requireContext()));
 
         //gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         gMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(18);
 
-        LatLng itb = new LatLng(41.4533,2.1857094);
-
-
+        LatLng initialLatLng;
+        MapsFragmentArgs args = MapsFragmentArgs.fromBundle(getArguments());
+        if (args.getLatitude() != null && args.getLatitude() != null) {
+            initialLatLng = new LatLng(args.getLatitude(), args.getLongitude());
+        } else {
+            initialLatLng = new LatLng(41.4533,2.1857094);
+        }
 
         //marker.icon(BitmapDescriptorFactory.fromResource(android.R.drawable.alert_dark_frame));
         //marker.draggable(true);
         //gMap.addMarker(marker);
 
         CameraPosition camera = new CameraPosition.Builder()
-                .target(itb)
+                .target(initialLatLng)
                 .zoom(15)
                 .bearing(0)
                 .tilt(30)
@@ -95,15 +99,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, TabLay
 
         gMap.setOnMapLongClickListener(this::mapLongClicked);
 
-/*        gMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                Toast.makeText(getContext(), "latLng " + latLng.latitude
-                        + "\nlong "  + latLng.longitude, Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-        ddbbUtils.getMarkerRef().addListenerForSingleValueEvent(new ValueEventListener() {
+        DDBBUtils.getMarkerRef().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot s : dataSnapshot.getChildren()){

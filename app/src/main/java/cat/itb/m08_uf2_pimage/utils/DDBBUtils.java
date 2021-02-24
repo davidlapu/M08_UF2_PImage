@@ -18,18 +18,12 @@ import java.util.Objects;
 import cat.itb.m08_uf2_pimage.models.MarkerItem;
 
 public class DDBBUtils {
-    private final StorageReference storageReference;
-    private final DatabaseReference imgref;
-    private final DatabaseReference markerRef;
-
-    public DDBBUtils() {
-        storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
-        imgref = FirebaseDatabase.getInstance().getReference().child("Fotos");
-        markerRef = FirebaseDatabase.getInstance().getReference("markers");
-    }
+    private static final StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
+    private static final DatabaseReference imgref = FirebaseDatabase.getInstance().getReference().child("Fotos");;
+    private static final DatabaseReference markerRef = FirebaseDatabase.getInstance().getReference("markers");
 
     //TODO get uri
-    public Task<Uri> subirImagen(byte[] img, LatLng latLng) {
+    public static Task<Uri> subirImagen(byte[] img, LatLng latLng) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp = sdf.format(new Date());
         String nameImage = timestamp + ".jpg";
@@ -50,13 +44,17 @@ public class DDBBUtils {
         return uriTask;
     }
 
-    public void uploadMarker(MarkerItem markerItem) {
+    public static void uploadMarker(MarkerItem markerItem) {
         String key = markerRef.push().getKey();
         markerItem.setId(key);
         markerRef.child(key).setValue(markerItem);
     }
 
-    public DatabaseReference getMarkerRef() {
+    public static void deleteMarker(String id) {
+        markerRef.child(id).removeValue();
+    }
+
+    public static DatabaseReference getMarkerRef() {
         return markerRef;
     }
 }
