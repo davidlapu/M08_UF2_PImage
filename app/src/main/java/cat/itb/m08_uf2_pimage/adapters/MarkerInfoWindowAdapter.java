@@ -31,6 +31,7 @@ public class MarkerInfoWindowAdapter implements InfoWindowAdapter {
     public View getInfoContents(Marker marker) {
         MaterialTextView textViewTitle, textViewDescription;
         ShapeableImageView imageView;
+        //TODO move to InfoWindow
 
         textViewTitle = viewContents.findViewById(R.id.infoTitle);
         textViewDescription = viewContents.findViewById(R.id.infoDescription);
