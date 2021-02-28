@@ -22,7 +22,6 @@ public class DDBBUtils {
     private static final DatabaseReference imgref = FirebaseDatabase.getInstance().getReference().child("Fotos");;
     private static final DatabaseReference markerRef = FirebaseDatabase.getInstance().getReference("markers");
 
-    //TODO get uri
     public static Task<Uri> subirImagen(byte[] img, LatLng latLng) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp = sdf.format(new Date());

@@ -72,10 +72,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, TabLay
         gMap = googleMap;
         gMap.setInfoWindowAdapter(new MarkerInfoWindowAdapter(getLayoutInflater(), requireContext()));
 
-        //gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        gMap.setMinZoomPreference(15);
-        googleMap.setMaxZoomPreference(18);
-
         LatLng initialLatLng;
         MapsFragmentArgs args = MapsFragmentArgs.fromBundle(getArguments());
         if (args.getLatitude() != null && args.getLatitude() != null) {
@@ -83,10 +79,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, TabLay
         } else {
             initialLatLng = new LatLng(41.4533,2.1857094);
         }
-
-        //marker.icon(BitmapDescriptorFactory.fromResource(android.R.drawable.alert_dark_frame));
-        //marker.draggable(true);
-        //gMap.addMarker(marker);
 
         CameraPosition camera = new CameraPosition.Builder()
                 .target(initialLatLng)

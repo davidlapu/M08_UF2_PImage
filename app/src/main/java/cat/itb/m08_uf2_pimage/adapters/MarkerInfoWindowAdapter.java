@@ -3,7 +3,6 @@ package cat.itb.m08_uf2_pimage.adapters;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.model.Marker;
@@ -35,8 +34,6 @@ public class MarkerInfoWindowAdapter implements InfoWindowAdapter {
         String[] info = marker.getSnippet().split("\\$spl\\$");
         text = info[0];
         url = info[1];
-        Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
-        //TODO move to InfoWindow
 
         textViewTitle = viewContents.findViewById(R.id.infoTitle);
         textViewDescription = viewContents.findViewById(R.id.infoDescription);
